@@ -19,14 +19,14 @@ namespace Nokket.Controllers
         public IBraintreeConfiguration config = new BraintreeConfiguration();
 
         // GET api/cient_token
-        public JsonResult Get()
+        public IHttpActionResult Get()
         {
             var gateway = config.GetGateway();
 
-            JsonResult result = new JsonResult();
-            result.client_token = gateway.ClientToken.generate();
+            JsonResult jsonResult = new JsonResult();
+            jsonResult.client_token = gateway.ClientToken.generate();
 
-            return result;
+            return Ok(jsonResult);
         }
     }
 }
