@@ -14,6 +14,7 @@ namespace Nokket.Controllers
         public class FormData
         {
             public string nonce { get; set; }
+            public string amount { get; set; }
         }
 
         public class JsonResult
@@ -30,12 +31,13 @@ namespace Nokket.Controllers
             JsonResult jsonResult = new JsonResult();
             var gateway = config.GetGateway();
 
-            string nonceFromTheClient = formData.nonce;
+            string nonceFromClient = formData.nonce;
+            decimal amountFromClient = Convert.ToDecimal(formData.amount);
 
             var request = new TransactionRequest
             {
-                Amount = 10.00M,
-                PaymentMethodNonce = nonceFromTheClient,
+                Amount = amountFromClient,
+                PaymentMethodNonce = nonceFromClient,
                 Options = new TransactionOptionsRequest
                 {
                     SubmitForSettlement = true
